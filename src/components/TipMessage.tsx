@@ -7,10 +7,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Spinner } from 'components/Spinner';
 import { P } from 'components/P';
-import { DARK_PURPLE } from 'constants/colors';
+import { KHAKI_BLUE, RED } from 'constants/colors';
 
 const tipStyle = css`
-  color: ${DARK_PURPLE};
+  color: ${KHAKI_BLUE};
 
   display: flex;
   border: solid 1px currentColor;
@@ -19,7 +19,7 @@ const tipStyle = css`
 `;
 
 const tipErrorStyle = css`
-  color: red;
+  color: RED;
 `;
 
 const iconColumnStyle = css`
@@ -28,7 +28,7 @@ const iconColumnStyle = css`
 `;
 
 const messageColumnStyle = css`
-  whitespace: pre-wrap;
+  white-space: pre-wrap;
   padding: 16px;
 `;
 
@@ -46,7 +46,7 @@ export const TipMessage = ({ message, isLoading, hasError }: Props) => {
       return message ?? defaultErrorMessage;
     }
 
-    return isLoading ? <Spinner /> : <P>{message}</P>;
+    return isLoading ? <Spinner /> : <P>{message ?? ''}</P>;
   }, [message, isLoading, hasError]);
 
   return (

@@ -10,6 +10,8 @@ import {
   HEADER_HEIGHT,
 } from 'constants/userTableStyles';
 import { Cell } from 'components/UsersTable';
+import { BORDER } from 'constants/styles';
+import { BLUE, LIGHT_GREY, OFF_WHITE } from 'constants/colors';
 
 type Props = {
   sort: UserTableSort;
@@ -31,20 +33,22 @@ const HeaderCell = styled(Cell)`
   box-sizing: border-box;
   font-size: 1.125em;
 
-
   &:not(:last-of-type) {
-    border-right: solid 1px #eee;
+    border-right: ${BORDER};
+    border-right-style: dotted;
   }
 
   &:hover {
-    background-color: #eee;
+    background-color: ${OFF_WHITE};
+    & > span {
+      color: ${BLUE};
+    }
   }
 `;
 
 const SortIcon = styled.span`
   position: absolute;
   right: 12px;
-  top: calc(50% - 6px);
 `;
 
 export const HeaderRow = ({
@@ -66,7 +70,7 @@ export const HeaderRow = ({
           {isActiveSort && (
             <SortIcon>
               <FontAwesomeIcon
-                size="1x"
+                size='1x'
                 icon={direction === 'asc' ? faSortDown : faSortUp}
               />
             </SortIcon>

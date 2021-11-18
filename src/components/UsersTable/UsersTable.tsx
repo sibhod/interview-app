@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import { HeaderRow, Row } from 'components/UsersTable';
 import {
   defaultSort,
@@ -9,12 +10,12 @@ import {
 import { useCallback, useMemo, useState } from 'react';
 import { getOppositeDirection } from 'types/Sort';
 import { User, UserKey, UserTableSort } from 'types/User';
-import {
-  transparentScrollBarStyle,
-  tracklessScrollBarStyle,
-} from 'constants/mixins';
+import { tracklessScrollBarStyle } from 'constants/mixins';
+import { BLUE, DARK_GREY, MEDIUM_GREY, LIGHT_GREY } from 'constants/colors';
+import { BORDER_RADIUS } from 'constants/layout';
+import { BORDER } from 'constants/styles';
 
-const gridStyle = css`
+const Grid = styled.div`
   display: grid;
   grid-template-columns: ${tableGridTemplateColumns};
   padding: 2px;
@@ -54,7 +55,9 @@ export const UsersTable = ({ users }: Props) => {
       .sort((a, b) => {
         return a[sortKey] > b[sortKey] ? dirNormal : -dirNormal;
       })
-      .map((user) => <Row key={user.full_name} user={user} />);
+      .map((user, index) => (
+        <Row key={user.full_name} rowIndex={index} user={user} />
+      ));
   }, [sort, users]);
 
   return (
@@ -63,31 +66,29 @@ export const UsersTable = ({ users }: Props) => {
         width: 100%;
         height: 100%;
         position: relative;
-        border: solid 1px #ccc;
-        border-radius: 4px;
+        border: ${BORDER};
+        border-radius: ${BORDER_RADIUS};
       `}
     >
-      <div
-        css={[
-          gridStyle,
-          css`
-            border-bottom: solid 1px #eee;
-          `,
-        ]}
+      <Grid
+        css={css`
+          border-bottom: ${BORDER};
+          border-bottom-style: dotted;
+        `}
       >
         <HeaderRow onColumnClick={handleSortClick} sort={sort} />
-      </div>
+      </Grid>
       <div
         css={[
           css`
             overflow: hidden auto;
             position: absolute;
-            inset: ${HEADER_HEIGHT + 2}px 0 0 0;
+            inset: ${HEADER_HEIGHT + 8}px 0 4px 0;
           `,
           tracklessScrollBarStyle,
         ]}
       >
-        <div css={[gridStyle]}>{userRows}</div>
+        <Grid>{userRows}</Grid>
       </div>
     </div>
   );

@@ -1,66 +1,110 @@
 import { css } from '@emotion/react';
-import { TEAL } from 'constants/colors';
+import styled from '@emotion/styled';
+import { BLUE } from 'constants/colors';
+import { BORDER_RADIUS } from 'constants/layout';
 import { MouseEventHandler, ReactNode } from 'react';
 
-const baseButtonStyle = css`
+const ButtonElement = styled.button<{
+  color: string;
+  disabled: boolean;
+  outline: boolean;
+}>(
+  (props) => `
+  --color: ${props.color};
+  
   appearance: none;
   display: flex;
+  opacity: ${props.disabled ? 0.5 : 1};
+  cursor: ${props.disabled ? 'not-allowed' : 'pointer'};
   align-items: center;
   justify-content: center;
-  padding: 12px 24px;
-  border-radius: 12px;
-  transition: filter 0.15s ease;
-  
-  &:hover {
-    filter: brightness(1.15);
+  padding: 8px 16px;
+  border-radius: ${BORDER_RADIUS};
+  min-height: 32px;
+
+
+  ${
+    props.outline
+      ? `
+      background-color: transparent;
+      border: solid 1px var(--color);
+      color: var(--color);
+    `
+      : `
+    border: 0;
+    color: white;
+    background-color: var(--color);
+    `
   }
+`
+);
 
-  &:active {
-    filter: brightness(0.9);
-  }
-`;
+// const baseButtonStyle = css`
+//   appearance: none;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   padding: 8px 16px;
+//   border-radius: ${BORDER_RADIUS};
+//   transition: filter 0.15s ease;
+//   min-height: 32px;
 
-const buttonStyle = css`
-  border: 0;
-  color: white;
-  background-color: var(--color);
-`;
+//   &:hover {
+//     filter: brightness(1.15);
+//   }
 
-const outlineButtonStyle = css`
-  background-color: transparent;
-  border: solid 1px var(--color);
-  color: var(--color);
-`;
+//   &:active {
+//     filter: brightness(0.9);
+//   }
+// `;
+
+// const buttonStyle = css`
+//   border: 0;
+//   color: white;
+//   background-color: var(--color);
+// `;
+
+// const outlineButtonStyle = css`
+//   background-color: transparent;
+//   border: solid 1px var(--color);
+//   color: var(--color);
+// `;
 
 type ButtonProps = {
-  children: ReactNode;
   color?: string;
   disabled?: boolean;
-  onClick?: MouseEventHandler;
   outline?: boolean;
-};
+} & JSX.IntrinsicElements['button'];
 
 export const Button = ({
-  children,
-  color = TEAL,
+  color = BLUE,
   disabled,
-  onClick,
   outline,
+  ...props
 }: ButtonProps) => {
+  // return (
+  //   <button
+  //     css={[
+  //       css`
+  //         --color: ${color};
+  //         opacity: ${disabled ? 0.5 : 1};
+  //         cursor: ${disabled ? 'not-allowed' : 'pointer'};
+  //       `,
+  //       baseButtonStyle,
+  //       outline ? outlineButtonStyle : buttonStyle,
+  //     ]}
+  //     onClick={disabled ? undefined : onClick}
+  //   >
+  //     {children}
+  //   </button>
+  // );
+
   return (
-    <button
-      css={[
-        css` 
-        --color: ${color};
-        opacity: ${disabled ? 0.5 : 1};
-        cursor: ${disabled ? 'not-allowed' : 'pointer'};
-      `,
-        baseButtonStyle,
-        outline ? outlineButtonStyle : buttonStyle,
-      ]}
-      onClick={disabled ? undefined : onClick}
-    >
-      {children}
-    </button>
+    <ButtonElement
+      color={color}
+      disabled={disabled ?? false}
+      outline={outline ?? false}
+      {...props}
+    />
   );
 };

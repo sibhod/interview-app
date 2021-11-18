@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { css } from '@emotion/react';
-import { Button } from 'components/Button';
+import { BlueButton } from 'components/BlueButton';
 import { FlexSection } from 'containers/FlexSection';
 import { TipMessage } from 'components/TipMessage';
+import { Note } from 'components/Note';
 import { mockFetchTips } from 'util/mockFetchTips';
 import Bluebird from 'bluebird';
+import { RED } from 'constants/colors';
 
 type TipViewState = {
   tip: string;
@@ -58,34 +60,50 @@ export const TipsView = () => {
 
   return (
     <FlexSection>
-      {/*       
-      <TipMessage isLoading={true} />
-      <TipMessage
-        message={
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum varius tortor quis malesuada semper. Fusce at faucibus lacus. Donec sed massa nec diam aliquet iaculis vel efficitur magna. Proin malesuada nisl quis lacinia posuere. Aenean ipsum odio, aliquet ac massa vitae, laoreet iaculis massa. Sed dignissim placerat lectus gravida egestas. Nullam nisi lectus, pulvinar eget venenatis eu, fringilla sed quam. Duis nec fermentum neque.'
+      <div
+        style={{
+          height: 300,
+          display: 'flex',
+          flexDirection: 'column',
+          gridGap: '1em',
+          padding: '0 8em',
+        }}
+      >
+        <TipMessage hasError={hasError} isLoading={isLoading} message={tip} />
+        <div
+          css={css`
+            display: flex;
+            justify-content: flex-end;
+          `}
+        >
+          <BlueButton disabled={isLoading} onClick={getNextTooltip}>
+            {hasError ? 'Try Again' : 'Next'}
+          </BlueButton>
+        </div>
+      </div>
+      <Note
+        header={
+          <>
+            Promises, hooks, and <span style={{ color: RED }}>error</span>{' '}
+            handling
+          </>
+        }
+        body={
+          <>
+            <p>
+              On this page I wanted to test for knowledge of fetching from an
+              API, handling promises, and working with React hooks.
+            </p>
+
+            <p>
+              I created a mock <code>fetch</code>, that returns data from a
+              local JSON through a Promise. The <code>mockFetch</code> will
+              randomly reject with an error about every 1 in 5 requests, so
+              error handling is required.
+            </p>
+          </>
         }
       />
-      <TipMessage hasError={true} />
-      <div
-        css={css`
-        display: flex;
-        justify-content: flex-end;
-      `}
-      >
-        <Button>Next</Button>
-      </div>
-      <hr /> */}
-      <TipMessage hasError={hasError} isLoading={isLoading} message={tip} />
-      <div
-        css={css`
-        display: flex;
-        justify-content: flex-end;
-      `}
-      >
-        <Button disabled={isLoading} onClick={getNextTooltip}>
-          {hasError ? 'Try Again' : 'Next'}
-        </Button>
-      </div>
     </FlexSection>
   );
 };

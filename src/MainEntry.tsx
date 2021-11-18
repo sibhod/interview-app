@@ -7,13 +7,14 @@ import { BrowserRouter } from 'react-router-dom';
 import { RouteName, routeStyles } from 'constants/routeStyles';
 import { HomeView, TipsView, UsersView } from 'views';
 import store from 'redux/store';
+import { FONT_FAMILY } from 'constants/styles';
+import { CanvasRoute } from 'containers/CanvasRoute';
+import { ContactView } from 'views/ContactView';
 
 const globalStyles = css`
   body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
+    font-family: ${FONT_FAMILY};
   }
 
   * {
@@ -21,9 +22,13 @@ const globalStyles = css`
   }
 
   code {
+    background-color: #4f2461;
+    border-radius: 4px;
+    border-bottom: 1px solid #623974;
     display: inline-block;
-    padding: 2px 4px;
-    background-color: #ddd;
+    padding: 2px 6px;
+    color: #cdf7f1;
+    font-size: 1.125em;
   }
 `;
 
@@ -34,17 +39,16 @@ export const MainEntry = () => {
       Home: <HomeView />,
       Tips: <TipsView />,
       Users: <UsersView />,
-      'Link Two': <span children="Link Two" />,
-      'Link Three': <span children="Link Three" />,
-      Contact: <span children="Contact" />,
+      Canvas: <CanvasRoute />,
+      Contact: <ContactView />,
     };
 
-    return routeStyles.map(({ title, route }) => (
+    return routeStyles.map(({ title, route, hasSubRoutes }) => (
       <Route
         index={title === 'Home'}
         element={routeElementMap[title]}
         key={`route-${route}`}
-        path={route}
+        path={`${route}${hasSubRoutes ? '/*' : ''}`}
       />
     ));
   }, []);
@@ -54,11 +58,11 @@ export const MainEntry = () => {
       <BrowserRouter>
         <Global styles={globalStyles} />
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route path='/' element={<Layout />}>
             {routes}
 
             {/* Catch-all for invalid routes */}
-            <Route path="*" element={<Navigate to="/" replace={true} />} />
+            <Route path='*' element={<Navigate to='/' replace={true} />} />
           </Route>
         </Routes>
       </BrowserRouter>

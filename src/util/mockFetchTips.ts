@@ -2,8 +2,7 @@ import { mockFetch, mockFetchError } from 'util/mockFetch';
 import mockTipsPayload from 'util/mockTipsPayload.json';
 import { TipResponse } from 'types/TipResponse';
 import { clamp } from 'util/clamp';
-import { randomBoolean } from 'util/randomBoolean';
-import { randomRange } from 'util/randomRange';
+import { randomBoolean, randomRange } from 'util/random';
 
 const errorRatio = 0.25;
 let threwErrorPreviously = false;

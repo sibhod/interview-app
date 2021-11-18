@@ -1,5 +1,5 @@
 import { css, keyframes } from '@emotion/react';
-import { TEAL } from 'constants/colors';
+import { BLUE } from 'constants/colors';
 
 const spinAnimation = keyframes`
   0% {
@@ -19,7 +19,7 @@ export type SpinnerProps = {
 
 export const Spinner = ({
   borderWidth = 2,
-  color = TEAL,
+  color = BLUE,
   size = 16,
 }: Props) => {
   return (
