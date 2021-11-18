@@ -1,57 +1,31 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { BORDER, BOX_SHADOW_LIGHT } from 'constants/styles';
-import { BLUE, LIGHT_GREY, MEDIUM_GREY, OFF_WHITE } from 'constants/colors';
+import {
+  BAHAMA_BLUE,
+  BLUE,
+  LIGHT_GREY,
+  MEDIUM_GREY,
+  OFF_WHITE,
+} from 'constants/colors';
 
 import { FlexSection } from 'containers/FlexSection';
 import { Note } from 'components/Note';
+import { BORDER_RADIUS } from 'constants/layout';
 
-// const sectionStyle = css`
-//   color: #333;
-
-//   & p {
-//     margin: 0;
-//     padding: 0 0.25em;
-//   }
-// `;
-
-// const headerStyle = css`
-//   color: #444;
-//   font-size: 1.25em;
-//   margin: 0;
-//   padding: 0;
-//   padding-bottom: 0.5em;
-//   border-bottom: dashed 1px ${MEDIUM_GREY};
-// `;
-
-// const Note = styled.div`
-//   border: ${BORDER};
-//   background-color: ${OFF_WHITE};
-//   box-shadow: ${BOX_SHADOW_LIGHT};
-//   display: flex;
-//   flex-direction: column;
-//   font-size: 1em;
-//   gap: 1em;
-//   padding: 1em 1em 2em;
-//   position: relative;
-//   overflow: hidden;
-//   &::before {
-//     content: '';
-//     display: block;
-//     position: absolute;
-//     inset: 0px -4px;
-//     border: solid 4px ${LIGHT_GREY};
-//     opacity: 0.25;
-//   }
-//   &::after {
-//     content: '';
-//     display: block;
-//     position: absolute;
-//     inset: -4px -1px;
-//     border: dotted 4px ${LIGHT_GREY};
-//     opacity: 0.5;
-//   }
-// `;
+const Link = styled.a`
+  font-weight: 600;
+  text-decoration: none;
+  color: ${BLUE};
+  border-radius: 6px;
+  display: inline-block;
+  padding: 0px 3px 1px;
+  &:hover,
+  &:active {
+    color: white;
+    background-color: ${BLUE};
+  }
+`;
 
 export const HomeView = () => {
   return (
@@ -59,28 +33,54 @@ export const HomeView = () => {
       <Note
         header={
           <>
-            Welcome to the <span style={{ color: BLUE }}>OpenSpace</span> coding
-            challenge
+            A proposal for an <span style={{ color: BLUE }}>OpenSpace</span>{' '}
+            interview coding challenge
           </>
         }
         body={
           <>
             <p>
-              This sample React/Redux app is full of broken or incomplete
-              functionality. The goal is to fix the errors and improve the code.
-              The tasks are categorized by language and discipline, so feel free
-              to address as many or few you feel comfortable with.
+              Since we are doing-away with the idea of take-home tests for
+              engineer candidates, I wanted to make a coding challenge option
+              that offers tasks across all the disciplines with require or want
+              in a potential hire.
             </p>
             <p>
-              To begin, search this project for <code>// TODO:</code>. Each todo
-              will list it's languages, and describe the problem. There's not
-              necessarily a "correct" answer, just a desired result. To confirm
-              a solution is satisfactory, run the command <code>yarn test</code>
-              . A satisfactory solution should pass the corresponding test.
+              The goal is to have challenges in JavaScript, CSS, React, Redux,{' '}
+              <code>{'<canvas />'}</code>, and TypeScript so candidates can pick
+              their poison. (I outline this more in-depth in my{' '}
+              <Link
+                href='https://docs.google.com/document/d/1EC8LNGUM-0oieOZfPE9JZQs13TTuIpmAZ1YzSuPP1XI/edit'
+                target='_blank'
+              >
+                concepts doc
+              </Link>
+              ).
             </p>
             <p>
-              Feel free to search, use API docs, stack overflow, etc.; whatever
-              you normally use.
+              I've started this project by actually building the core
+              funtionality we want to test for, which I will then remove,
+              disable, or break the functionality and create the challenge. I
+              figured working on an existing, working app going to be much more
+              familiar to engineers that starting a new project from scratch.
+            </p>
+            <p>
+              The challenges will range in size: from tweaking an element's
+              alignment in CSS; to refactoring a React class component to a
+              functional one, or building a debounce util to prevent event
+              spamming on scroll. Each challenge will be marked in the codebase
+              with a corresponding <code>// TODO:</code>, describing the issue
+              and what is considered "success". There's not necessarily a
+              "correct" answer, just a desired result.
+            </p>{' '}
+            <p>
+              I will also be adding unit and E2E tests for the challenges to
+              help candidates to pinpoint the issues and better understand
+              success.
+            </p>
+            <p>
+              I've added rough outlines to each page describing my plans. Feel
+              free to send me feedback!
             </p>
           </>
         }

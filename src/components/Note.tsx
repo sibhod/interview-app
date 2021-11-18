@@ -1,7 +1,14 @@
 import { ReactNode } from 'react';
 import styled from '@emotion/styled';
 import { BORDER, BOX_SHADOW_LIGHT } from 'constants/styles';
-import { BLUE, LIGHT_GREY, MEDIUM_GREY, OFF_WHITE } from 'constants/colors';
+import {
+  BLUE,
+  DARK_GREY,
+  LIGHT_GREY,
+  MEDIUM_GREY,
+  OFF_WHITE,
+} from 'constants/colors';
+import { hexToRgba } from 'util/color';
 
 const NoteElement = styled.div`
   border: ${BORDER};
@@ -15,21 +22,24 @@ const NoteElement = styled.div`
   position: relative;
   overflow: hidden;
 
+  &::after,
   &::before {
     content: '';
     display: block;
     position: absolute;
-    inset: 0px -4px;
-    border: solid 4px ${LIGHT_GREY};
-    opacity: 0.25;
+    pointer-events: none;
   }
+
   &::after {
-    content: '';
-    display: block;
-    position: absolute;
     inset: -4px -1px;
     border: dotted 4px ${LIGHT_GREY};
     opacity: 0.5;
+  }
+
+  &::before {
+    inset: 0px -4px;
+    border: solid 4px ${LIGHT_GREY};
+    opacity: 0.25;
   }
 `;
 
@@ -52,7 +62,7 @@ const HeaderSection = styled.div`
   margin: 0;
   padding: 0;
   padding-bottom: 0.5em;
-  border-bottom: dashed 1px ${MEDIUM_GREY};
+  border-bottom: dashed 1px ${LIGHT_GREY};
 `;
 
 type Props = {
